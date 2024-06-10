@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  postgres:
+    container_name: smida_postgres_db
+    image: 'postgres:16.0'
+    environment:
+      POSTGRES_DB: smida
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  mongodb:
+    container_name: smida_mongo_db
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  app:
+    image: smida-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+      - mongodb
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/smida
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATA_MONGODB_URI: mongodb://mongodb:27017/smida
+      SPRING_LIQUIBASE_CHANGELOG: classpath:/db/changelog/db.changelog-master.xml
+    ports:
+      - "8080:8080"
+
+volumes:
+  postgres-data:
+  mongo-data:
