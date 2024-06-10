@@ -424,6 +424,57 @@
     }
     ```
 
+## Authentication API
+
+### Register User
+
+- **Endpoint:** `POST /api/v1/auth/register`
+- **Description:** Register a new user.
+- **Request Body:**
+  ```json
+  {
+    "username": "john",
+    "password": "password123",
+    "role": "ADMIN"
+  }
+- **Response:**
+  - Status: `201 CREATED`
+  - Body:
+    ```json
+    {
+      "id": "67d23f69-5c15-435d-aebf-8bf83fe4f3d1",
+      "username": "John",
+      "password": "password123",
+      "role": "ADMIN"
+    }
+    ```
+  - Error Response: `400 Bad Request`
+    ```json
+    {
+      "error": "Email already in use"
+    }
+    ```  
+
+### Login User
+
+- **Endpoint:** `POST /api/v1/auth/login`
+- **Description:** Authenticate a user and return a JWT token.
+- **Request Body:**
+  ```json
+  {
+    "username": "john",
+    "password": "password123"
+  }
+- **Response:**
+  - Status: `200 OK`
+  - Body:
+    ```json
+    {
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+    }
+    ```
+  - Error Response: `500`
+ 
 ## Run
 1) Clone the project
 2) Start postgresql and mongodb data bases in docker and start the app
