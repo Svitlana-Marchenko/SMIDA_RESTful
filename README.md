@@ -12,8 +12,7 @@
 - **CRUD operations** for companies and their reports.
 - **Endpoints** for retrieving all reports of a specific company and detailed information about a report.
 - **Database migrations** using Liquibase.
-- **Logger**: Includes logging info (add an email, send emails, get rate (debug only)) to file `application.log` and console
-- **Test**: Includes test `app.test.js`
+- **Logger**
 - **Swagger**: Includes swagger documentation (`http://localhost:8080/swagger-ui/index.html#/`)
 - **JWT Token**: Includes jwt token for auth 
 
